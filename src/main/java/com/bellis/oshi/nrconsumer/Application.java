@@ -6,6 +6,7 @@ public class Application {
 
 
         SensorConsumer sensorConsumer = new SensorConsumer();
+        sensorConsumer.run();
 
     }
 }

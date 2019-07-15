@@ -1,6 +1,5 @@
 package com.bellis.oshi.nrconsumer;
 
-import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Trace;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -20,7 +19,7 @@ public class SensorConsumer implements Runnable {
     public SensorConsumer() {
 
         Properties props = new Properties();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaProperties.KAFKA_SERVER_URL +
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaProperties.KAFKA_SERVER_URL + ":" +
                 KafkaProperties.KAFKA_SERVER_PORT);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, FloatDeserializer.class.getName());
@@ -47,7 +46,8 @@ public class SensorConsumer implements Runnable {
         for(ConsumerRecord record : records){
             //Do I want metrics or events?  Considering. Could do more with mosaics
             //if I use
-            NewRelic.getAgent().getInsights().recordCustomEvent();
+            System.out.println(record.toString());
+//            NewRelic.getAgent().getInsights().recordCustomEvent(record.key(),);
 
         }
 
